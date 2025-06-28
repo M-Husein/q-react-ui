@@ -5,7 +5,7 @@ import type { AvatarProps } from '../Avatar';
 import { isNumber } from 'q-js-utils/isNumber';
 import { cn } from 'q-js-utils/cn';
 
-type AvatarItem = AvatarProps & {
+export type AvatarItemProps = AvatarProps & {
   /**
    * Optional ID for keying, useful if src/alt are not unique
    */
@@ -15,11 +15,11 @@ type AvatarItem = AvatarProps & {
    * Takes precedence over AvatarGroup's `renderItems` if both are provided.
    * Receives the default Avatar element, the current item, and its index.
    */
-  render?: (avatarElement: React.ReactElement, item: AvatarItem, index: number) => React.ReactNode,
+  render?: (avatarElement: React.ReactElement, item: AvatarItemProps, index: number) => React.ReactNode,
 }
 
-type AvatarGroupProps = {
-  items: AvatarItem[],
+export type AvatarGroupProps = {
+  items: AvatarItemProps[],
   className?: string,
   size?: number | string,
   max?: number,
@@ -27,7 +27,7 @@ type AvatarGroupProps = {
    * Render prop for customizing each displayed avatar element within the group.
    * Receives the default Avatar element, the current item, and its index.
    */
-  renderItems?: (avatarElement: React.ReactElement, item: AvatarItem, index: number) => React.ReactNode,
+  renderItems?: (avatarElement: React.ReactElement, item: AvatarItemProps, index: number) => React.ReactNode,
 
   /**
    * Render prop for customizing the 'remaining' avatars element.
@@ -76,7 +76,7 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
   }
 
   const renderAvatarItem = (
-    item: AvatarItem,
+    item: AvatarItemProps,
     index: number
   ) => {
     const { size: avatarSize, render, ...restProps } = item;

@@ -11,7 +11,31 @@ npm install q-ui-react
 ## Usage
 
 ```tsx
-import { Avatar, AvatarGroup } from 'q-ui-react';
+import { Avatar, AvatarGroup, AvatarItemProps } from 'q-ui-react';
+
+const users: AvatarItemProps = [
+  {
+    alt: "Tony Start",
+  },
+  {
+    alt: "Peter Parker"
+  },
+  {
+    alt: "Elizabeth Olsen"
+  },
+  {
+    alt: "Clark Kent"
+  },
+  {
+    alt: "Diana Prince"
+  },
+  {
+    alt: "Angelina Jolie"
+  },
+  {
+    alt: "Brad Pitt"
+  }
+];
 
 <Avatar 
   alt="Muhamad Husein"

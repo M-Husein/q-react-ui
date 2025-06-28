@@ -71,4 +71,4 @@ jobs:
         if: steps.check_version.outputs.version_exists == 'false'
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN_Q_JS_UTILS }} # Use a GitHub Secret for your npm token
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }} # Use a GitHub Secret for your npm token
