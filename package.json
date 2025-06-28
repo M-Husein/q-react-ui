@@ -1,0 +1,93 @@
+{
+  "name": "q-ui-react",
+  "private": true,
+  "version": "0.1.0",
+  "description": "A clean,  minimal, tree-shakable, type-safe React UI components.",
+  "author": "Muhamad Husein <m.husein27@gmail.com>",
+  "homepage": "https://github.com/M-Husein/q-ui-react#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/M-Husein/q-ui-react"
+  },
+  "bugs": {
+    "url": "https://github.com/M-Husein/q-ui-react/issues"
+  },
+  "keywords": [
+    "react",
+    "components",
+    "ui",
+    "javascript",
+    "typescript",
+    "design-system",
+    "avatar",
+    "tree-shakable",
+    "clean"
+  ],
+  "type": "module",
+  "license": "MIT",
+  "main": "./dist/index.cjs.js",
+  "module": "./dist/index.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js"
+    },
+    "./Avatar": {
+      "types": "./dist/Avatar.d.ts",
+      "import": "./dist/Avatar.es.js",
+      "require": "./dist/Avatar.cjs.js"
+    },
+    "./AvatarGroup": {
+      "types": "./dist/AvatarGroup.d.ts",
+      "import": "./dist/AvatarGroup.es.js",
+      "require": "./dist/AvatarGroup.cjs.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "clean": "rm -rf dist",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "format": "prettier --write .",
+    "test": "vitest"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "peerDependencies": {
+    "q-js-utils": ">=1.3.0",
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@testing-library/react": "^16.3.0",
+    "@types/node": "^24.0.4",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.29.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.2.0",
+    "postcss": "^8.5.6",
+    "postcss-replace": "^2.0.1",
+    "prettier": "^3.6.1",
+    "q-js-utils": "^1.3.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^3.4.17",
+    "terser": "^5.43.1",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.34.1",
+    "vite": "^7.0.0",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-lib-inject-css": "^2.2.2",
+    "vitest": "^3.2.4"
+  }
+}

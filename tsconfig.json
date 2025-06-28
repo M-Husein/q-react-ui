@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    // Output
+    "declaration": true,               // Generate .d.ts files
+    "emitDeclarationOnly": true,       // Emit types only, bundler will emit JS
+    "outDir": "./dist",                // Output directory
+    "declarationDir": "./dist",
+
+    // Target environment
+    "target": "ESNext",
+    "module": "ESNext",
+
+    // Module resolution aligned with Vite + bundler workflow
+    "moduleResolution": "bundler",     // Aligns with Vite, esbuild, tsup
+
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+
+    // Strictness and safety
+    "strict": true,
+    "skipLibCheck": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+
+    // Path aliases (optional, adjust if using)
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+
+    // JSX support
+    "jsx": "react-jsx"
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "dist", "example", "playground"]
+}

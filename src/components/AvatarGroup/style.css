@@ -1,0 +1,49 @@
+.avatar-group  {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.avatar-group > * {
+  border: 3.5px solid #fff;
+  flex: none;
+  text-decoration: none;
+}
+
+/** @DevOptions : for dark border-color */
+/* .avatar-group.dark > * {
+  border-color: #111827;
+} */
+
+.avatar-group > * + * {
+  margin-left: var(--ml);
+}
+
+.avatar-group > *:hover {
+  z-index: 1;
+}
+
+.ava-rest {
+  display: grid;
+  place-content: center;
+  line-height: 1;
+  /* color: #757a87; */
+  /* background: #e6e9f3; */
+  border-radius: 50%;
+  font-weight: 600;
+}
+
+/* For support override using Tailwind bg- */
+/* Option strict 
+  .ava-rest:not([class^="bg-"]):not([class*=" bg-"])
+*/
+.ava-rest:not([class*="bg-"]) {
+  background: #e6e9f3;
+}
+
+/* For support override using Tailwind text- */
+.ava-rest:not([class*="text-"]) {
+  color: #757a87;
+}
