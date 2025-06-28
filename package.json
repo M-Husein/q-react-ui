@@ -7,7 +7,7 @@
   "homepage": "https://github.com/M-Husein/q-ui-react#readme",
   "repository": {
     "type": "git",
-    "url": "https://github.com/M-Husein/q-ui-react"
+    "url": "git+https://github.com/M-Husein/q-ui-react.git"
   },
   "bugs": {
     "url": "https://github.com/M-Husein/q-ui-react/issues"

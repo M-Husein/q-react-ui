@@ -35,7 +35,9 @@ function App() {
       className="p-4" //  bg-gray-900
     >
       <Avatar 
+        size={55}
         alt="Muhamad Husein" 
+        src="https://avatars.githubusercontent.com/u/19644272?v=4"
         // draggable
       />
 
