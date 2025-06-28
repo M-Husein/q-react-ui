@@ -28,7 +28,7 @@ export default defineConfig({
     // lib: {
     //   entry: resolve(__dirname, 'src/index.ts'),
     //   name: 'QUIReact',
-    //   fileName: (format) => `q-ui-react.${format}.js`,
+    //   fileName: (format) => `q-react-ui.${format}.js`,
     // },
     lib: {
       entry: {
@@ -38,7 +38,7 @@ export default defineConfig({
         // For utilities without CSS
         // 'utils/someUtils': resolve(__dirname, 'src/utils/someUtils.ts'),
       },
-      name: 'QUIReact',
+      name: 'QReactUI',
       formats: ['es', 'cjs'], // , 'umd'
       fileName: (format, entryName) => `${entryName}.${format}.js`,
     },

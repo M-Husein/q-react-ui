@@ -1,17 +1,17 @@
-# q-ui-react
+# q-react-ui
 
 A clean, minimal, tree-shakable, type-safe React UI components.
 
 ## Install
 
 ```bash
-npm install q-ui-react
+npm install q-react-ui
 ```
 
 ## Usage
 
 ```tsx
-import { Avatar, AvatarGroup, AvatarItemProps } from 'q-ui-react';
+import { Avatar, AvatarGroup, AvatarItemProps } from 'q-react-ui';
 
 const users: AvatarItemProps = [
   {
@@ -75,6 +75,6 @@ const users: AvatarItemProps = [
 Or single import for tree-shaking
 
 ```tsx
-import { Avatar } from 'q-ui-react/Avatar';
-import { AvatarGroup } from 'q-ui-react/AvatarGroup';
+import { Avatar } from 'q-react-ui/Avatar';
+import { AvatarGroup } from 'q-react-ui/AvatarGroup';
 ```
