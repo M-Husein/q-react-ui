@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
     # Set permissions for the GITHUB_TOKEN
-    permissions:
-      contents: read
-      packages: write
-      id-token: write
+    # permissions:
+    #   contents: read
+    #   packages: write
+    #   id-token: write
 
     steps:
       # Step 1: Checkout the repository code.
