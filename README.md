@@ -1,6 +1,6 @@
 # q-ui-react
 
-A clean,  minimal, tree-shakable, type-safe React UI components.
+A clean, minimal, tree-shakable, type-safe React UI components.
 
 ## Install
 

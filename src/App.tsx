@@ -73,7 +73,6 @@ function App() {
             //   alignItems: 'center',
             //   justifyContent: 'center',
             //   fontSize: '14px',
-            //   marginLeft: '5px'
             // }}
             {...remaningProps}
             // className={remaningProps.className + " bg-red-400"}
