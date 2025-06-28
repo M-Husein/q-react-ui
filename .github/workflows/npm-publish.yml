@@ -1,4 +1,4 @@
-name: NPM Publish
+name: Publish to npm
 
 on:
   push:
@@ -11,7 +11,6 @@ env:
 
 jobs:
   publish:
-    name: Publish to NPM
     runs-on: ubuntu-latest # Use the latest Ubuntu runner
 
     # Set permissions for the GITHUB_TOKEN
