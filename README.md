@@ -2,10 +2,18 @@
 
 A clean, minimal, tree-shakable, type-safe React UI components.
 
-## Install
+## Installation
+
+You must install q-js-utils, unless you already have it installed.
 
 ```bash
-npm install q-react-ui
+npm install q-react-ui q-js-utils
+```
+
+**Or**
+
+```bash
+yarn add q-react-ui q-js-utils
 ```
 
 ## Usage
@@ -72,9 +80,14 @@ const users: AvatarItemProps = [
 />
 ```
 
-Or single import for tree-shaking
+Or single import for tree-shaking.
 
 ```tsx
 import { Avatar } from 'q-react-ui/Avatar';
 import { AvatarGroup } from 'q-react-ui/AvatarGroup';
 ```
+
+About Tree-Shaking:
+- [Tree Shaking - webpack](https://webpack.js.org/guides/tree-shaking)
+- [Tree shaking - Glossary - MDN Web Docs](https://developer.mozilla.org/en-US/docs/Glossary/Tree_shaking)
+- [Tree-Shaking: A Reference Guide](https://www.smashingmagazine.com/2021/05/tree-shaking-reference-guide/)
