@@ -1,6 +1,5 @@
 {
   "name": "q-ui-react",
-  "private": true,
   "version": "0.1.0",
   "description": "A clean,  minimal, tree-shakable, type-safe React UI components.",
   "author": "Muhamad Husein <m.husein27@gmail.com>",
