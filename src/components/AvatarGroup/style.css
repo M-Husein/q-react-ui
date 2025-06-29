@@ -29,21 +29,19 @@
   display: grid;
   place-content: center;
   line-height: 1;
-  /* color: #757a87; */
-  /* background: #e6e9f3; */
   border-radius: 50%;
   font-weight: 600;
 }
 
-/* For support override using Tailwind bg- */
+/* To support override using Tailwind bg- */
 /* Option strict 
   .ava-rest:not([class^="bg-"]):not([class*=" bg-"])
 */
 .ava-rest:not([class*="bg-"]) {
-  background: #e6e9f3;
+  background: #ddd;
 }
 
-/* For support override using Tailwind text- */
+/* To support override using Tailwind text- */
 .ava-rest:not([class*="text-"]) {
-  color: #757a87;
+  color: #777;
 }

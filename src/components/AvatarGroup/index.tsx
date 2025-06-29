@@ -31,9 +31,14 @@ export type AvatarGroupProps = {
 
   /**
    * Render prop for customizing the 'remaining' avatars element.
-   * Receives the default props for the remaining element and the count of remaining avatars.
+   * Receives the default props for the remaining element, the count of remaining avatars, 
+   * and the array of remaining avatar items.
    */
-  renderRemaining?: (remaningProps: React.HTMLAttributes<HTMLElement>, remaining: number) => React.ReactNode,
+  renderRemaining?: (
+    remaningProps: React.HTMLAttributes<HTMLElement>, 
+    count: number,
+    remainingItems: AvatarItemProps[]
+  ) => React.ReactNode,
 
   /** ...etc will be captured by React.HTMLAttributes<HTMLDivElement> */
 } & React.HTMLAttributes<HTMLElement>;
@@ -65,7 +70,7 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
         }
       };
 
-      return renderRemaining ? renderRemaining(remaningProps, remaining) : <div {...remaningProps}>+{remaining}</div>;
+      return renderRemaining ? renderRemaining(remaningProps, remaining, items.slice(max)) : <div {...remaningProps}>+{remaining}</div>;
     }
 
     /**
@@ -75,10 +80,7 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
      */
   }
 
-  const renderAvatarItem = (
-    item: AvatarItemProps,
-    index: number
-  ) => {
+  const renderAvatarItem = (item: AvatarItemProps, index: number) => {
     const { size: avatarSize, render, ...restProps } = item;
     const avatarElement = <Avatar {...restProps} size={fixSize || avatarSize} />;
 

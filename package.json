@@ -1,7 +1,7 @@
 {
   "name": "q-react-ui",
   "version": "0.1.0",
-  "description": "A clean, minimal, tree-shakable, type-safe React UI components.",
+  "description": "A clean, minimal, tree-shakable React UI components & hooks.",
   "author": "Muhamad Husein <m.husein27@gmail.com>",
   "homepage": "https://github.com/M-Husein/q-react-ui#readme",
   "repository": {
@@ -14,6 +14,7 @@
   "keywords": [
     "react",
     "components",
+    "hooks",
     "ui",
     "javascript",
     "typescript",
@@ -42,6 +43,11 @@
       "types": "./dist/AvatarGroup.d.ts",
       "import": "./dist/AvatarGroup.es.js",
       "require": "./dist/AvatarGroup.cjs.js"
+    },
+    "./useNetwork": {
+      "types": "./dist/useNetwork.d.ts",
+      "import": "./dist/useNetwork.es.js",
+      "require": "./dist/useNetwork.cjs.js"
     }
   },
   "scripts": {

@@ -27,7 +27,7 @@ export const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
       size = 33,
       draggable = false,
       className,
-      bg, // For define background-color
+      bg, // to define background-color
       onError,
       onLoad,
       ...etc
@@ -39,14 +39,19 @@ export const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
     const [initial, setInitial] = useState<string | undefined>();
     const [errorClass, setErrorClass] = useState<string>('');
 
-    const fixSize = isNumber(size) ? size + 'px' : size;
+    let fixSize = isNumber(size) ? size + 'px' : size;
 
     const parseView = () => {
-      const color: any = bg ? bg.replace('#', '') : alt ? str2Hex(alt) : '5a6268';
+      let trimmed = alt?.trim();
+      let color = bg ? bg.replace('#', '') : trimmed ? str2Hex(trimmed) : '5a6268';
 
-      setInitial(alt ? getInitials(alt) : '?');
+      setInitial(
+        trimmed ? getInitials(trimmed)?.toUpperCase() : '?'
+      );
 
-      setErrorClass(`ava-${darkOrLight(color) === 'dark' ? 'light' : 'dark'}`);
+      setErrorClass(
+        `ava-${trimmed ? (darkOrLight(color as string) === 'dark' ? 'light' : 'dark') : 'light'}`
+      );
       
       setErrorStyle({
         '--fs': `calc(${fixSize} / 2.25)`,
@@ -82,7 +87,9 @@ export const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
       <img
         loading="lazy"
         decoding="async"
+
         {...etc} // Override props above
+        
         ref={ref}
         width={fixSize}
         height={fixSize}
