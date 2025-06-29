@@ -2,16 +2,18 @@
 import { Avatar } from "@/components/Avatar";
 import { AvatarGroup } from "@/components/AvatarGroup";
 // import { AdaptiveItems } from '@/components/AdaptiveItems';
+import { useNetwork } from '@/hooks/useNetwork';
+import { cn } from "q-js-utils/cn";
 
 const users = [
   {
-    alt: "Tony Start",
+    alt: "Muhamad Husein",
+  },
+  {
+    alt: "Tony Start"
   },
   {
     alt: "Peter Parker"
-  },
-  {
-    alt: "Elizabeth Olsen"
   },
   {
     alt: "Clark Kent"
@@ -20,37 +22,48 @@ const users = [
     alt: "Diana Prince"
   },
   {
-    alt: "Angelina Jolie"
+    alt: "Bruce Wayne"
   },
   {
-    alt: "Brad Pitt"
+    alt: "John Doe"
   }
 ];
 
 function App() {
-  // const [count, setCount] = useState(0)
+  // const [count, setCount] = useState(0);
+
+  const isOnline = useNetwork({
+    onOnline: () => alert('ONLINE'),
+    onOffline: () => alert('OFFLINE'),
+  });
 
   return (
-    <div 
-      className="p-4" //  bg-gray-900
-    >
-      <Avatar 
-        size={55}
-        alt="Muhamad Husein" 
-        src="https://avatars.githubusercontent.com/u/19644272?v=4"
-        // draggable
-      />
+    <div className="p-4">
+      <div className="space-x-4">
+        <h4 className={cn("text-2xl font-bold", isOnline ? "text-blue-600" : "text-red-600")}>
+          {isOnline ? "Online" : "Offline"}
+        </h4>
 
-      <Avatar 
-        size={55}
-        // alt="?" 
-      />
+        <hr className="my-4" />
 
-      <Avatar 
-        alt="Steve Roger" 
-        size={55}
-        loading={undefined}
-      />
+        <Avatar 
+          size={55}
+          alt="Muhamad Husein" 
+          src="https://avatars.githubusercontent.com/u/19644272?v=4"
+          // draggable
+        />
+
+        <Avatar 
+          size={55}
+          // alt="?" 
+        />
+
+        <Avatar 
+          alt="Steve Roger" 
+          size={55}
+          loading={undefined}
+        />
+      </div>
 
       <h2>AvatarGroup</h2>
       <AvatarGroup
@@ -61,7 +74,7 @@ function App() {
         size={57}
         items={users.map((item: any) => ({ ...item, className: "rounded-full" }))}
         // renderRemaining={(El, remaining) => <div title={`Remaining (${remaining})`}>{El}</div>}
-        renderRemaining={(remaningProps, remaining) => (
+        renderRemaining={(remaningProps, remaining, remainingItems) => (
           <div 
             // style={{
             //   backgroundColor: 'purple',
@@ -77,6 +90,7 @@ function App() {
             {...remaningProps}
             // className={remaningProps.className + " bg-red-400"}
             className={"bg-red-400 " + remaningProps.className + " text-red-100"}
+            title={remainingItems.map(item => item.alt).join('\n')}
           >
             +{remaining}
           </div>

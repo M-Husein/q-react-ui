@@ -12,33 +12,9 @@
   content: attr(aria-label);
   display: grid;
   place-items:  center;
-  /* text-transform: uppercase; */
   font-size: var(--fs);
   font-weight: 500;
   background-color: var(--bg);
-}
-
-/* .ava-loader {
-  cursor: progress;
-} */
-
-.ava-loader::before {
-  content: '\00a0';
-  position: absolute;
-  inset: 0;
-  display: block;
-
-  background: #ddd;
-
-  /* background: #fff
-    linear-gradient(
-      to right,
-      rgba(0, 0, 0, 0.08) 0,
-      rgba(0, 0, 0, 0.15) 15%,
-      rgba(0, 0, 0, 0.08) 30%
-    );
-  background-size: 1200px 100%;
-  animation: lightAnim 2s linear infinite; */
 }
 
 .ava-light {
@@ -49,19 +25,7 @@
   color: #343a40;
 }
 
-/* @-webkit-keyframes lightAnim {
-  0% {
-    background-position: -1200px 0;
-  }
-  100% {
-    background-position: 1200px 0;
-  }
+.ava-loader {
+  cursor: progress;
+  background: #ddd;
 }
-@keyframes lightAnim {
-  0% {
-    background-position: -1200px 0;
-  }
-  100% {
-    background-position: 1200px 0;
-  }
-} */
