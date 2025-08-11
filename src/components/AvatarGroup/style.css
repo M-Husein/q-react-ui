@@ -31,17 +31,6 @@
   line-height: 1;
   border-radius: 50%;
   font-weight: 600;
-}
-
-/* To support override using Tailwind bg- */
-/* Option strict 
-  .ava-rest:not([class^="bg-"]):not([class*=" bg-"])
-*/
-.ava-rest:not([class*="bg-"]) {
-  background: #ddd;
-}
-
-/* To support override using Tailwind text- */
-.ava-rest:not([class*="text-"]) {
   color: #777;
+  background: #ddd;
 }

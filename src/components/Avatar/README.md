@@ -1,19 +1,16 @@
-import { useState, useEffect, forwardRef } from 'react';
-import { getInitials } from 'q-js-utils/getInitials';
-import { str2Hex } from 'q-js-utils/str2Hex';
-import { darkOrLight } from 'q-js-utils/darkOrLight';
-import { isNumber } from 'q-js-utils/isNumber';
-import { cn } from 'q-js-utils/cn';
+# Avatar
 
-type ImageEvent = React.SyntheticEvent<HTMLImageElement, Event>;
+## Options
 
+### With `bg` props
+```ts
 export type AvatarProps = {
   src?: string | any,
   alt?: string,
   size?: number | string,
   draggable?: boolean,
   className?: string,
-  defaultBg?: string,
+  bg?: string,
   onError?: (e: ImageEvent) => void,
   onLoad?: (e: ImageEvent) => void,
 } & React.ImgHTMLAttributes<HTMLImageElement>;
@@ -23,10 +20,10 @@ export const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
     {
       src,
       alt,
-      size = 35,
+      size = 33,
       draggable = false,
       className,
-      defaultBg = "777", // Fallback background color
+      bg, // to define background-color
       onError,
       onLoad,
       ...etc
@@ -38,17 +35,18 @@ export const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
     const [initial, setInitial] = useState<string | undefined>();
     const [errorClass, setErrorClass] = useState<string>('');
 
-    let fixSize = isNumber(size) ? size + "px" : size;
+    let fixSize = isNumber(size) ? size + 'px' : size;
 
     const parseView = () => {
       let trimmed = alt?.trim();
-      let color = trimmed ? str2Hex(trimmed) : defaultBg;
+      let color = bg ? bg.replace('#', '') : trimmed ? str2Hex(trimmed) : '5a6268';
 
-      setInitial(trimmed ? getInitials(trimmed)?.toUpperCase() : "?");
+      setInitial(
+        trimmed ? getInitials(trimmed)?.toUpperCase() : '?'
+      );
 
       setErrorClass(
-        // `ava-${trimmed ? (darkOrLight(color as string) === 'dark' ? 'light' : 'dark') : 'light'}`
-        "ava-" + (darkOrLight(color as string) === 'dark' ? 'light' : 'dark')
+        `ava-${trimmed ? (darkOrLight(color as string) === 'dark' ? 'light' : 'dark') : 'light'}`
       );
       
       setErrorStyle({
@@ -62,12 +60,12 @@ export const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
         parseView();
         setLoad(false);
       }
-    }, [src, alt]); // , size
+    }, [src, size, alt, bg]);
 
     const Load = (e: ImageEvent) => {
       setLoad(false);
       setInitial(undefined);
-      setErrorClass("");
+      setErrorClass('');
       setErrorStyle({});
       onLoad?.(e);
     }
@@ -91,7 +89,7 @@ export const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
         ref={ref}
         width={fixSize}
         height={fixSize}
-        alt={alt || "?"}
+        alt={alt || '?'}
         src={src}
         aria-label={initial}
         draggable={draggable ? undefined : false}
@@ -101,8 +99,8 @@ export const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
         }}
         className={
           cn(
-            "ava",
-            load && "ava-loader",
+            'ava',
+            load && 'ava-loader',
             errorClass,
             className
           )
@@ -113,3 +111,4 @@ export const Avatar = forwardRef<HTMLImageElement, AvatarProps>(
     );
   }
 );
+```

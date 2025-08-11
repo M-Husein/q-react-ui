@@ -17,15 +17,15 @@
   background-color: var(--bg);
 }
 
+.ava-loader {
+  background: #ddd;
+  cursor: progress;
+}
+
 .ava-light {
   color: #fff;
 }
 
 .ava-dark {
   color: #343a40;
-}
-
-.ava-loader {
-  cursor: progress;
-  background: #ddd;
 }

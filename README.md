@@ -66,7 +66,7 @@ const App = () => {
       <AvatarGroup
         size={57}
         items={users.map((item: any) => ({ ...item, className: "rounded-full" }))}
-        renderRemaining={(remaningProps, remaining, remainingItems) => (
+        renderRemaining={(remaining, remaningProps, remainingItems) => (
           <div 
             {...remaningProps}
             className={"bg-red-400 " + remaningProps.className + " text-red-100"}
@@ -109,6 +109,11 @@ It provides the current network status as a boolean and allows optional callback
 ### useNetwork
 ```ts
 import { useNetwork } from 'q-react-ui/useNetwork';
+```
+
+#### Usage
+```ts
+import { useNetwork } from 'q-react-ui/useNetwork';
 import { cn } from 'q-js-utils/cn';
 
 const App = () => {
@@ -133,3 +138,16 @@ const App = () => {
   );
 }
 ```
+
+---
+
+## Next Devs:
+
+### Components
+1. Form ✔️
+2. Editor (based-on monaco-editor) ✔️
+3. Img / Image 🔧📝
+4. Textarea 🔧📝
+  - https://github.com/Andarist/react-textarea-autosize
+  - https://github.com/react-component/textarea
+5. AdaptiveItems 🔧📝
