@@ -1,4 +1,3 @@
-import './style.css';
 import { Fragment } from 'react';
 import { Avatar } from '../Avatar';
 import type { AvatarProps } from '../Avatar';
@@ -31,12 +30,12 @@ export type AvatarGroupProps = {
 
   /**
    * Render prop for customizing the 'remaining' avatars element.
-   * Receives the default props for the remaining element, the count of remaining avatars, 
+   * Receives the count of remaining avatars, the default props for the remaining element, 
    * and the array of remaining avatar items.
    */
   renderRemaining?: (
-    remaningProps: React.HTMLAttributes<HTMLElement>, 
     count: number,
+    remaningProps: React.HTMLAttributes<HTMLElement>, 
     remainingItems: AvatarItemProps[]
   ) => React.ReactNode,
 
@@ -48,7 +47,7 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
   className,
   renderItems,
   renderRemaining,
-  size = 33,
+  size = 35,
   max = 5,
   ...etc
 }) => {
@@ -70,7 +69,9 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
         }
       };
 
-      return renderRemaining ? renderRemaining(remaningProps, remaining, items.slice(max)) : <div {...remaningProps}>+{remaining}</div>;
+      return renderRemaining 
+        ? renderRemaining(remaining, remaningProps, items.slice(max)) 
+        : <div {...remaningProps}>+{remaining}</div>;
     }
 
     /**
@@ -86,11 +87,11 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
 
     return (
       <Fragment key={restProps.id ?? index}>
-        {/* Prioritize group-level renderItems, then individual item's render, then default Avatar */}
-        {renderItems
-          ? renderItems(avatarElement, item, index)
-          : render
-            ? render(avatarElement, item, index)
+        {/* Prioritize individual item's render, then group-level renderItems, then default Avatar */}
+        {render
+          ? render(avatarElement, item, index)
+          : renderItems
+            ? renderItems(avatarElement, item, index)
             : avatarElement}
       </Fragment>
     );

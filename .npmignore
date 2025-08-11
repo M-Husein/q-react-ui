@@ -5,3 +5,9 @@ vite.config.ts
 tsconfig.json
 *.test.*
 *.md
+
+# CUSTOM
+
+public/js/*
+# or specific
+# public/js/monaco-editor/*

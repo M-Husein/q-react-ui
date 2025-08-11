@@ -52,14 +52,18 @@ export const useNetwork = ({
       isOnline ? onOnlineRef.current?.() : onOfflineRef.current?.();
     }
 
+    const controller = new AbortController();
+		const signal = controller.signal;
+
     // Add event listeners when the component mounts
-    window.addEventListener("offline", handleChange);
-    window.addEventListener("online", handleChange);
+    window.addEventListener("offline", handleChange, { signal });
+    window.addEventListener("online", handleChange, { signal });
 
     // Cleanup function: remove event listeners when the component unmounts
     return () => {
-      window.removeEventListener("offline", handleChange);
-      window.removeEventListener("online", handleChange);
+      controller.abort();
+      // window.removeEventListener("offline", handleChange);
+      // window.removeEventListener("online", handleChange);
     }
   }, []);
 

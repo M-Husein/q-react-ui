@@ -35,6 +35,7 @@ export default defineConfig({
         index: resolve(__dirname, 'src/index.ts'), // Main bundle
         Avatar: resolve(__dirname, 'src/components/Avatar/index.tsx'),
         AvatarGroup: resolve(__dirname, 'src/components/AvatarGroup/index.tsx'),
+        Form: resolve(__dirname, 'src/components/Form/index.tsx'),
 
         // Hooks:
         useNetwork: resolve(__dirname, 'src/hooks/useNetwork/index.tsx'),
