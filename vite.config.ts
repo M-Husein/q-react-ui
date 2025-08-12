@@ -43,7 +43,7 @@ export default defineConfig({
         MonacoEditorImport: resolve(__dirname, 'src/components/MonacoEditor/import.tsx'),
 
         // Hooks:
-        useNetwork: resolve(__dirname, 'src/hooks/useNetwork/index.tsx'),
+        useNetwork: resolve(__dirname, 'src/hooks/useNetwork/index.ts'),
         // For utilities without CSS
         // 'utils/someUtils': resolve(__dirname, 'src/utils/someUtils.ts'),
       },
