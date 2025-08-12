@@ -1,5 +1,9 @@
 # q-react-ui
 
+<a href="https://www.npmjs.com/package/q-react-ui"><img src="https://img.shields.io/npm/v/q-react-ui" alt="Latest Stable Version"></a>
+<a href="https://www.npmjs.com/package/q-react-ui"><img src="https://img.shields.io/npm/dt/q-react-ui" alt="Total Downloads"></a>
+<a href="https://www.npmjs.com/package/q-react-ui"><img src="https://img.shields.io/npm/l/q-react-ui" alt="License"></a>
+
 A clean, minimal, tree-shakable React UI components & hooks.
 
 ## Installation
@@ -15,6 +19,12 @@ npm install q-react-ui q-js-utils
 ```bash
 yarn add q-react-ui q-js-utils
 ```
+
+# Components
+
+1. Form
+2. Resizable
+3. Editor (based-on monaco-editor)
 
 ## Usage
 
@@ -144,10 +154,8 @@ const App = () => {
 ## Next Devs:
 
 ### Components
-1. Form ✔️
-2. Editor (based-on monaco-editor) ✔️
-3. Img / Image 🔧📝
-4. Textarea 🔧📝
+1. Img / Image 🔧📝
+2. Textarea 🔧📝
   - https://github.com/Andarist/react-textarea-autosize
   - https://github.com/react-component/textarea
-5. AdaptiveItems 🔧📝
+3. AdaptiveItems 🔧📝
