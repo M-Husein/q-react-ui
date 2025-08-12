@@ -40,7 +40,7 @@ export default defineConfig({
 
         MonacoEditor: resolve(__dirname, 'src/components/MonacoEditor/index.tsx'),
         MonacoEditorCDN: resolve(__dirname, 'src/components/MonacoEditor/cdn.tsx'),
-        MonacoEditorImport: resolve(__dirname, 'src/components/Resizable/import.tsx'),
+        MonacoEditorImport: resolve(__dirname, 'src/components/MonacoEditor/import.tsx'),
 
         // Hooks:
         useNetwork: resolve(__dirname, 'src/hooks/useNetwork/index.tsx'),
