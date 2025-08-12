@@ -36,6 +36,11 @@ export default defineConfig({
         Avatar: resolve(__dirname, 'src/components/Avatar/index.tsx'),
         AvatarGroup: resolve(__dirname, 'src/components/AvatarGroup/index.tsx'),
         Form: resolve(__dirname, 'src/components/Form/index.tsx'),
+        Resizable: resolve(__dirname, 'src/components/Resizable/index.tsx'),
+
+        MonacoEditor: resolve(__dirname, 'src/components/MonacoEditor/index.tsx'),
+        MonacoEditorCDN: resolve(__dirname, 'src/components/MonacoEditor/cdn.tsx'),
+        MonacoEditorImport: resolve(__dirname, 'src/components/Resizable/import.tsx'),
 
         // Hooks:
         useNetwork: resolve(__dirname, 'src/hooks/useNetwork/index.tsx'),
