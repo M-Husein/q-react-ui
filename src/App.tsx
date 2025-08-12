@@ -210,9 +210,9 @@ function App() {
           <div
             // data-resize={isResizing}
             onMouseDown={handleMouseDown}
-            className={isResizing ? "bg-blue-400" : "bg-gray-400"}
+            className={isResizing ? "bg-blue-200 isResizing" : "bg-gray-200"}
             style={{
-              height: 7,
+              height: 5,
               cursor: 'ns-resize',
               // background: '#777',
             }}
@@ -233,7 +233,7 @@ function App() {
           //   id: "monacoSrc"
           // }}
           language="typescript" // javascript
-          theme="vs-dark"
+          // theme="vs-dark"
           readOnly={readOnlyMonaco}
           // originalValue="const request = fetch('https://api.com/users');"
           options={{
@@ -243,7 +243,29 @@ function App() {
             scrollBeyondLastLine: false,
             scrollbar: {
               alwaysConsumeMouseWheel: false,
+              //
+              // Subtle shadows to the left & top. Defaults to true.
+              // useShadows: false,
+
+              // // Render vertical arrows. Defaults to false.
+              // verticalHasArrows: true,
+              // // Render horizontal arrows. Defaults to false.
+              // horizontalHasArrows: true,
+
+              // // Render vertical scrollbar.
+              // // Accepted values: 'auto', 'visible', 'hidden'.
+              // // Defaults to 'auto'
+              // vertical: "visible",
+              // // Render horizontal scrollbar.
+              // // Accepted values: 'auto', 'visible', 'hidden'.
+              // // Defaults to 'auto'
+              // horizontal: "visible",
+
+              // verticalScrollbarSize: 15,
+              // horizontalScrollbarSize: 15,
+              // arrowSize: 28,
             },
+            placeholder: "Insert code here...",
           }}
           loader={
             <div

@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 
-interface ResizableProps {
+export interface ResizableProps {
   minHeight?: number;
   maxHeight?: number;
   initialHeight?: number;
@@ -86,7 +86,7 @@ export const Resizable: React.FC<ResizableProps> = ({
         <div
           onMouseDown={handleMouseDown}
           style={{
-            height: 7,
+            height: 5,
             cursor: 'ns-resize',
             background: '#f0f0f0',
           }}
