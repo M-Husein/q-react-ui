@@ -206,14 +206,16 @@ function App() {
         initialHeight={400} 
         minHeight={100} 
         maxHeight={800}
-        resizer={(handleMouseDown, isResizing) => (
+        renderResizer={(handleMouseDown, isResizing) => (
           <div
             // data-resize={isResizing}
             onMouseDown={handleMouseDown}
+            tabIndex={-1}
             className={isResizing ? "bg-blue-200 isResizing" : "bg-gray-200"}
             style={{
               height: 5,
               cursor: 'ns-resize',
+              userSelect: 'none',
               // background: '#777',
             }}
           />

@@ -6,7 +6,7 @@ export interface ResizableProps {
   initialHeight?: number;
   children: React.ReactNode;
   style?: React.CSSProperties;
-  resizer?: (
+  renderResizer?: (
     onMouseDown: (e: React.MouseEvent) => void,
     isResizing: boolean,
   ) => React.ReactNode;
@@ -18,7 +18,7 @@ export const Resizable: React.FC<ResizableProps> = ({
   initialHeight = 300,
   children,
   style,
-  resizer,
+  renderResizer,
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const isResizingRef = useRef<boolean>(false);
@@ -80,8 +80,8 @@ export const Resizable: React.FC<ResizableProps> = ({
       {children}
 
       {/* Resize handle */}
-      {resizer ? 
-        resizer(handleMouseDown, isResizing)
+      {renderResizer ? 
+        renderResizer(handleMouseDown, isResizing)
         :
         <div
           onMouseDown={handleMouseDown}
