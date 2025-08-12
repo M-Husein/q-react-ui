@@ -296,6 +296,7 @@ function App() {
 
       <hr className="my-4" />
 
+      {/* @ts-ignore */}
       {Array.from({ length: 27 }).map((item: any, idx: number) => <p key={idx}>P {idx + 1}</p>)}
 
       {/* <div
