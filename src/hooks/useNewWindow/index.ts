@@ -35,7 +35,11 @@ export interface UseNewWindowProps {
    * Close when React unmounts
    */
   closeOnUnmount?: boolean;
-  open?: boolean; // controlled
+  
+  /**
+   * Controlled
+   */
+  open?: boolean;
   copyStyles?: boolean;
   onOpen?: (win: Window) => void;
   onClose?: () => void;
@@ -45,7 +49,7 @@ export const useNewWindow = ({
   url = "", // about:blank
   name = "",
   title = "",
-  features = { width: 600, height: 640 },
+  features = { width: 550, height: 590 },
   center = "screen", // parent
   closeOnParentUnload = true,
   closeOnUnmount = true,
