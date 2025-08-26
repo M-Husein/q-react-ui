@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import type { useMonacoResult, MonacoInstance } from "@/utils/monaco-editor/types";
-import { importMode } from "@/utils/monaco-editor/importMode";
 
-export const useMonaco = (): useMonacoResult => {
+export const useMonaco = (script: () => Promise<any>): useMonacoResult => {
   const [monaco, setMonaco] = useState<MonacoInstance | undefined | null>();
   const [error, setError] = useState<Error | undefined | null>();
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -13,7 +12,7 @@ export const useMonaco = (): useMonacoResult => {
     setMonaco(null);
     setError(null);
 
-    importMode()
+    script()
       .then((m) => {
         if (!isCancelled) {
           setMonaco(m);

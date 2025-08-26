@@ -5,10 +5,10 @@ import {
   useRef,
   useState
 } from "react";
-import type { MonacoEditorRef, MonacoEditorCdnImportProps } from "@/utils/monaco-editor/types";
+import type { MonacoEditorRef, MonacoEditorCdnProps } from "@/utils/monaco-editor/types";
 import { useMonaco } from "@/hooks/useMonaco";
 
-export const Editor = forwardRef<MonacoEditorRef, MonacoEditorCdnImportProps>(
+export const Editor = forwardRef<MonacoEditorRef, MonacoEditorCdnProps>(
   (
     {
       src,

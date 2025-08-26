@@ -1,0 +1,209 @@
+import { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
+import { copyStyles as copyStylesFn } from "q-js-utils/copyStyles";
+
+export interface NewWindowFeatures {
+  width?: number;
+  height?: number;
+  top?: number;
+  left?: number;
+  [key: string]: any;
+}
+
+export interface UseNewWindowProps {
+  open?: boolean;
+  url?: string;
+  name?: string;
+  title?: string;
+  features?: NewWindowFeatures;
+  center?: "parent" | "screen";
+  copyStyles?: boolean;
+  closeOnUnmount?: boolean;
+  onBlock?: (win: Window | null) => void;
+  onOpen?: (win: Window) => void;
+  onUnload?: (win: Window | null) => void;
+}
+
+export const useNewWindow = ({
+  open,
+  url = "",
+  name = "",
+  title = "",
+  features = { width: 600, height: 640 },
+  center = "screen", // parent
+  copyStyles, // = true,
+  closeOnUnmount = true,
+  onBlock,
+  onOpen,
+  onUnload,
+}: UseNewWindowProps) => {
+  const [mounted, setMounted] = useState(!!open); // false
+  const containerRef = useRef<HTMLElement | null>(null);
+  const windowRef = useRef<Window | null>(null);
+  const intervalRef = useRef<number>(0);
+  const releasedRef = useRef(false);
+
+  useEffect(() => {
+    if(open != null && typeof open === "boolean"){
+      setMounted(open);
+      open ? openChild() : close();
+    }
+  }, [open]);
+
+  useEffect(() => {
+    // if (!windowRef.current && !containerRef.current) {
+    //   openChild();
+    //   setMounted(true);
+    // }
+
+    // 🔒 ensure child closes if parent tab closes or reloads
+    const handleParentUnload = () => {
+      if (windowRef.current && !windowRef.current.closed) {
+        windowRef.current.close();
+      }
+    };
+
+    window.addEventListener("beforeunload", handleParentUnload);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleParentUnload);
+
+      if (windowRef.current) {
+        if (closeOnUnmount) {
+          windowRef.current.close();
+        } 
+        else if (containerRef.current) {
+          // Keep static copy if not closing
+          const clone = containerRef.current.cloneNode(true);
+          (clone as HTMLElement).id = "new-window-container-static";
+          windowRef.current.document.body.appendChild(clone);
+        }
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Automatically close when parent unloads
+  // useEffect(() => {
+  //   if (!closeOnParentUnload) return;
+
+  //   const handleUnload = () => {
+  //     if (windowRef.current && !windowRef.current.closed) {
+  //       windowRef.current.close();
+  //     }
+  //   };
+
+  //   window.addEventListener("beforeunload", handleUnload);
+  //   return () => {
+  //     window.removeEventListener("beforeunload", handleUnload);
+  //   };
+  // }, [closeOnParentUnload]);
+
+  const openChild = () => {
+    if (windowRef.current && !windowRef.current.closed) {
+      windowRef.current.focus();
+      return windowRef.current;
+    }
+
+    // Handle centering
+    if (
+      typeof center === "string" &&
+      (features.width == null || features.height == null)
+    ) {
+      console.warn("width & height must be present when a center prop is provided");
+    }
+    else if (center === "screen") {
+      // const screenLeft = window.screenLeft != null ? window.screenLeft : window.screenX;
+      // const screenTop = window.screenTop != null ? window.screenTop : window.screenY;
+
+      // const width = window.innerWidth || document.documentElement.clientWidth || window.screen.width;
+      // const height = window.innerHeight || document.documentElement.clientHeight || window.screen.height;
+
+      // features.left = width / 2 - features.width! / 2 + screenLeft;
+      // features.top = height / 2 - features.height! / 2 + screenTop;
+
+      // const screenWidth = window.screen.width;
+      // const screenHeight = window.screen.height;
+
+      features.left = (screen.width - features.width!) / 2;
+      features.top = (screen.height - features.height!) / 2;
+    } 
+    else if (center === "parent") {
+      features.left = window.top!.outerWidth / 2 + window.top!.screenX - features.width! / 2;
+      features.top = window.top!.outerHeight / 2 + window.top!.screenY - features.height! / 2;
+    }
+
+    setMounted(true);
+
+    // Open new window
+    windowRef.current = window.open(url, name, toWindowFeatures(features));
+    containerRef.current = windowRef.current?.document.createElement("div") ?? null;
+
+    // Detect close
+    intervalRef.current = window.setInterval(() => {
+      if (!windowRef.current || windowRef.current.closed) {
+        release();
+      }
+    }, 50);
+
+    if (windowRef.current) {
+      windowRef.current.document.title = title;
+
+      // Ensure container exists
+      let container = windowRef.current.document.getElementById("new-window-container");
+      if (!container) {
+        container = windowRef.current.document.createElement("div");
+        container.id = "new-window-container";
+        windowRef.current.document.body.appendChild(container);
+        containerRef.current = container;
+      }
+
+      // Copy styles
+      if (copyStyles) {
+        setTimeout(() => copyStylesFn(document, windowRef.current!.document), 1);
+      }
+
+      onOpen?.(windowRef.current);
+
+      windowRef.current.addEventListener("beforeunload", () => release());
+    } else {
+      onBlock?.(null);
+      // console.warn("New window could not be opened (likely blocked).");
+    }
+  };
+
+  const release = () => {
+    if (releasedRef.current) return;
+    releasedRef.current = true;
+
+    if (intervalRef.current) clearInterval(intervalRef.current);
+    onUnload?.(windowRef.current);
+  };
+
+  const close = () => {
+    if (windowRef.current && !windowRef.current.closed) {
+      windowRef.current.close();
+      release();
+    }
+  };
+
+  return {
+    mounted,
+    container: containerRef.current,
+    win: windowRef.current,
+    open: openChild,
+    close,
+    portal: mounted && containerRef.current
+      ? (children: React.ReactNode) => ReactDOM.createPortal(children, containerRef.current!)
+      : null
+  };
+};
+
+/**
+ * Convert feature object into "key=value,key=value" string
+ */
+const toWindowFeatures = (obj: Record<string, any>): string => {
+  return Object.entries(obj)
+    .map(([k, v]) => `${k}=${typeof v === "boolean" ? (v ? "yes" : "no") : v}`)
+    .join(",");
+}

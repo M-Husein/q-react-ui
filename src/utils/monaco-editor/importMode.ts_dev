@@ -1,4 +1,5 @@
-import type { WorkerConstructor } from './types';
+// Import type for worker constructor
+export type WorkerConstructor = new (...args: any[]) => Worker;
 
 let importPromise: Promise<any> | undefined | null;
 

@@ -4,13 +4,21 @@ import { AvatarGroup } from "@/components/AvatarGroup";
 // import { Img } from '@/components/Img';
 import { Form } from '@/components/Form';
 import { Editor } from '@/components/MonacoEditor';
-// import { Editor } from '@/components/MonacoEditor/cdn';
 // import { Editor } from '@/components/MonacoEditor/import';
 import { Resizable } from '@/components/Resizable';
+import { NewWindow, type NewWindowHandle } from '@/components/NewWindow';
 // import { AdaptiveItems } from '@/components/AdaptiveItems';
 import { useNetwork } from '@/hooks/useNetwork';
 import { useTextareaEditor } from '@/hooks/useTextareaEditor';
+// import { useNewWindow, UseNewWindowProps } from "@/hooks/useNewWindow";
 import { cn } from "q-js-utils/cn";
+
+// const NewWindow: React.FC<NewWindowProps> = (props) => {
+//   const { portal } = useNewWindow(props);
+
+//   if (!portal) return null;
+//   return <>{portal(props.children)}</>;
+// };
 
 const users = [
   {
@@ -37,6 +45,9 @@ const users = [
 ];
 
 function App() {
+  const [openNewWindow, setOpenNewWindow] = useState(false);
+  const newWindowRef = useRef<NewWindowHandle>(null);
+
   const [readOnlyMonaco, setReadOnlyMonaco] = useState(false);
   const monacoRef = useRef<any>(null);
   // const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -79,6 +90,19 @@ function App() {
   //   }
   // };
 
+  // const toggleNewWindow = () => setOpenNewWindow(!openNewWindow);
+  const toggleNewWindow = () => {
+    // if (openNewWindow) {
+    //   // 👇 explicitly close popup
+    //   newWindowRef.current?.close();
+    //   setOpenNewWindow(false);
+    // } else {
+    //   // newWindowRef.current?.open();
+    //   setOpenNewWindow(true);
+    // }
+    setOpenNewWindow(!openNewWindow);
+  };
+
   return (
     <div className="p-4">
       <div className="space-x-4">
@@ -87,6 +111,52 @@ function App() {
         </h4>
 
         <hr className="my-4" />
+
+        <button
+          type="button"
+          onClick={toggleNewWindow}
+        >
+          {openNewWindow ? "Close" : "Open"} New Window
+        </button>
+
+        <NewWindow
+          ref={newWindowRef}
+          open={openNewWindow}
+          // url="about:blank"
+          name="_blank" // Popup
+          title="My New Window"
+          // center="parent" // screen | parent
+          // closeOnUnmount={false}
+          // onOpen={(w) => console.log("Opened w: ", w)}
+          // onUnload={() => {
+          //   setOpenNewWindow(false);
+          //   console.log("Closed");
+          // }}
+          copyStyles
+          onClose={() => {
+            setOpenNewWindow(false);
+            console.log("Closed");
+          }}
+        >
+          <h1 className="text-xl text-blue-500 font-bold">Hello from popup!</h1>
+        </NewWindow>
+
+        {/* {openNewWindow && (
+          <NewWindow
+            ref={newWindowRef}
+            // url="about:blank"
+            title="Popup"
+            center="parent" // screen | parent
+            // closeOnUnmount={false}
+            onOpen={(w) => console.log("Opened w: ", w)}
+            onUnload={() => {
+              setOpenNewWindow(false);
+              console.log("Closed");
+            }}
+          >
+            <h1>Hello from popup!</h1>
+          </NewWindow>
+        )} */}
 
         <Avatar 
           size={55}
@@ -203,23 +273,22 @@ function App() {
       </div>
 
       <Resizable
+        className="relative"
         initialHeight={400} 
         minHeight={100} 
         maxHeight={800}
-        renderResizer={(handleMouseDown, isResizing) => (
-          <div
-            // data-resize={isResizing}
-            onMouseDown={handleMouseDown}
-            tabIndex={-1}
-            className={isResizing ? "bg-blue-200 isResizing" : "bg-gray-200"}
-            style={{
-              height: 5,
-              cursor: 'ns-resize',
-              userSelect: 'none',
-              // background: '#777',
-            }}
-          />
-        )}
+        // renderResizer={(props, isResizing) => (
+        //   <div
+        //     // onMouseDown={handleMouseDown}
+        //     // tabIndex={-1}
+        //     {...props}
+        //     className={isResizing ? "bg-blue-200 isResizing" : "bg-gray-200"}
+        //     style={{
+        //       height: 5,
+        //       cursor: 'ns-resize',
+        //     }}
+        //   />
+        // )}
       >
         <Editor
           ref={monacoRef}
@@ -235,7 +304,7 @@ function App() {
           //   id: "monacoSrc"
           // }}
           language="typescript" // javascript
-          // theme="vs-dark"
+          theme="vs-dark"
           readOnly={readOnlyMonaco}
           // originalValue="const request = fetch('https://api.com/users');"
           options={{
