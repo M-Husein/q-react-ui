@@ -1,13 +1,14 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useRef } from "react";
+import { type UseResizableOptions, useResizable } from "@/hooks/useResizable";
 
-export interface ResizableProps {
-  minHeight?: number;
-  maxHeight?: number;
-  initialHeight?: number;
+// Omit wrapperRef from the options to keep it as an internal concern.
+type OmittedResizableOptions = Omit<UseResizableOptions, 'wrapperRef'>;
+
+export interface ResizableProps extends React.HTMLAttributes<HTMLDivElement>, OmittedResizableOptions {
   children: React.ReactNode;
   style?: React.CSSProperties;
   renderResizer?: (
-    onMouseDown: (e: React.MouseEvent) => void,
+    resizerProps: React.HTMLAttributes<HTMLElement>,
     isResizing: boolean,
   ) => React.ReactNode;
 }
@@ -19,79 +20,75 @@ export const Resizable: React.FC<ResizableProps> = ({
   children,
   style,
   renderResizer,
+  onResizeStart,
+  onResizeEnd,
+  ...etc
 }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const isResizingRef = useRef<boolean>(false);
-  const startYRef = useRef<number>(0);
-  const startHeightRef = useRef<number>(0);
-  const [height, setHeight] = useState(initialHeight);
-  const [isResizing, setIsResizing] = useState<boolean>(false);
+  
+  const { height, isResizing, handleStart, handleKeyDown } = useResizable({
+    initialHeight,
+    minHeight,
+    maxHeight,
+    wrapperRef,
+    onResizeStart,
+    onResizeEnd,
+  });
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!isResizingRef.current) return;
+  const handleReactEventStart = (e: React.MouseEvent | React.TouchEvent) => {
+    // This wrapper function extracts the native event from React's synthetic event.
+    // It's the key to resolving the TypeScript error.
+    handleStart(e.nativeEvent);
+  };
 
-      let newHeight = startHeightRef.current + (e.clientY - startYRef.current);
+  // const preventDefault = (e: React.MouseEvent | React.TouchEvent) => e.preventDefault();
 
-      if (newHeight < minHeight) newHeight = minHeight;
-      if (newHeight > maxHeight) newHeight = maxHeight;
-
-      setHeight(newHeight);
-    };
-
-    const handleMouseUp = () => {
-      setIsResizing(false);
-      isResizingRef.current = false;
-      document.body.style.userSelect = "";
-    };
-
-    const controller = new AbortController();
-		const signal = controller.signal;
-
-    document.addEventListener("mousemove", handleMouseMove, { signal });
-    document.addEventListener("mouseup", handleMouseUp, { signal });
-
-    return () => {
-      controller.abort();
-      // document.removeEventListener("mousemove", handleMouseMove);
-      // document.removeEventListener("mouseup", handleMouseUp);
-    };
-  }, [minHeight, maxHeight]);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsResizing(true);
-    isResizingRef.current = true;
-    startYRef.current = e.clientY;
-    startHeightRef.current = wrapperRef.current?.offsetHeight ?? initialHeight;
-    document.body.style.userSelect = "none"; // prevent text selection while resizing
+  const resizerProps: React.HTMLAttributes<HTMLElement> = {
+    className: "resizer",
+    tabIndex: 0,
+    role: "separator",
+    "aria-label": "Resize container height",
+    "aria-orientation": "vertical",
+    "aria-valuemin": minHeight,
+    "aria-valuemax": maxHeight,
+    "aria-valuenow": height,
+    "aria-grabbed": isResizing,
+    onMouseDown: handleReactEventStart,
+    onTouchStart: handleReactEventStart,
+    onKeyDown: handleKeyDown,
+    // Optional
+    onContextMenu: e => e.preventDefault(),
+    // onAuxClick: preventDefault,
   };
 
   return (
     <div
+      {...etc}
       ref={wrapperRef}
       style={{
         ...style,
         height,
         maxHeight,
         minHeight,
-        // position: 'relative',
+        // overflow: 'auto', // Important for content that might exceed the height
       }}
     >
       {children}
 
       {/* Resize handle */}
-      {renderResizer ? 
-        renderResizer(handleMouseDown, isResizing)
+      {renderResizer ?
+        renderResizer(resizerProps, isResizing)
         :
         <div
-          onMouseDown={handleMouseDown}
+          {...resizerProps}
           style={{
             height: 5,
             cursor: 'ns-resize',
-            background: '#f0f0f0',
+            touchAction: 'pan-y',
+            background: isResizing ? '#777' : '#ddd',
           }}
         />
       }
     </div>
   );
-};
+}

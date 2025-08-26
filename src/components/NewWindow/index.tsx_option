@@ -1,0 +1,18 @@
+import { useImperativeHandle, forwardRef } from 'react';
+import { useNewWindow, UseNewWindowProps } from "@/hooks/useNewWindow";
+
+export interface NewWindowHandle {
+  close: () => void;
+  open: () => void;
+}
+
+export const NewWindow = forwardRef<NewWindowHandle, React.PropsWithChildren<UseNewWindowProps>>(
+  (props, ref) => {
+    const { portal, close, open } = useNewWindow(props);
+
+    useImperativeHandle(ref, () => ({ close, open }), [close, open]);
+
+    if (!portal) return null;
+    return portal(props.children);
+  }
+);

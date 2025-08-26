@@ -5,12 +5,13 @@ import {
   useRef,
   useState
 } from "react";
-import type { MonacoEditorRef, MonacoEditorProps } from "@/utils/monaco-editor/types";
+import type { MonacoEditorRef, MonacoEditorImportProps } from "@/utils/monaco-editor/types";
 import { useMonaco } from "@/hooks/useMonaco/import";
 
-export const Editor = forwardRef<MonacoEditorRef, MonacoEditorProps>(
+export const Editor = forwardRef<MonacoEditorRef, MonacoEditorImportProps>(
   (
     {
+      script,
       value,
       defaultValue,
       originalValue, // To Diff editor
@@ -24,7 +25,7 @@ export const Editor = forwardRef<MonacoEditorRef, MonacoEditorProps>(
     },
     ref
   ) => {
-    const { monaco, isLoading } = useMonaco();
+    const { monaco, isLoading } = useMonaco(script);
     const containerRef = useRef<HTMLDivElement>(null);
     const lastValueRef = useRef<string | undefined>(value ?? defaultValue ?? "");
     const [editorInstance, setEditorInstance] = useState<any>(null);

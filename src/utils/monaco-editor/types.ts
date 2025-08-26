@@ -2,9 +2,6 @@ import type * as monaco from "monaco-editor";
 
 export type MonacoInstance = typeof monaco;
 
-// Import type for worker constructor
-export type WorkerConstructor = new (...args: any[]) => Worker;
-
 export type ScriptSrc = string | string[];
 
 /**
@@ -60,9 +57,8 @@ export interface MonacoEditorCdnProps extends MonacoEditorProps {
   scriptAttrs?: ScriptAttributes;
 }
 
-export interface MonacoEditorCdnImportProps extends MonacoEditorProps {
-  src?: ScriptSrc;
-  scriptAttrs?: ScriptAttributes;
+export interface MonacoEditorImportProps extends MonacoEditorProps {
+  script: () => Promise<any>
 }
 
 export type useMonacoResult = {

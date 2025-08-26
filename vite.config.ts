@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
+import mkcert from 'vite-plugin-mkcert';
 import dts from 'vite-plugin-dts';
 import { libInjectCss } from 'vite-plugin-lib-inject-css';
 import { resolve } from 'path';
@@ -8,6 +9,7 @@ import { resolve } from 'path';
 export default defineConfig({
   plugins: [
     react(),
+    mkcert(),
     dts({
       insertTypesEntry: true,
     }),
@@ -37,9 +39,7 @@ export default defineConfig({
         AvatarGroup: resolve(__dirname, 'src/components/AvatarGroup/index.tsx'),
         Form: resolve(__dirname, 'src/components/Form/index.tsx'),
         Resizable: resolve(__dirname, 'src/components/Resizable/index.tsx'),
-
         MonacoEditor: resolve(__dirname, 'src/components/MonacoEditor/index.tsx'),
-        MonacoEditorCDN: resolve(__dirname, 'src/components/MonacoEditor/cdn.tsx'),
         MonacoEditorImport: resolve(__dirname, 'src/components/MonacoEditor/import.tsx'),
 
         // Hooks:

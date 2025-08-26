@@ -22,14 +22,16 @@ yarn add q-react-ui q-js-utils
 
 # Components
 
-1. Form
-2. Resizable
-3. Editor (based-on monaco-editor)
+1. Avatar
+2. AvatarGroup
+3. Form
+4. Resizable
+5. Editor (based-on monaco-editor)
 
 ## Usage
 
 ```tsx
-import { Avatar, AvatarGroup, AvatarItemProps } from 'q-react-ui';
+import { Avatar, AvatarGroup, type AvatarItemProps } from 'q-react-ui';
 
 const App = () => {
   const users: AvatarItemProps = [
