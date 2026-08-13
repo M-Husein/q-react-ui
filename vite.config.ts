@@ -20,12 +20,25 @@ export default defineConfig({
       '@': resolve(__dirname, './src'),
     },
   },
-  // server: {
-  //   port: 5178, // Default = 5173
-  //   /** @DOCS : https://vitejs.dev/config/server-options.html#server-strictport */
-  //   // strictPort: true, // Default = false
-  //   host: true,
-  // },
+  server: {
+    // port: 5178, // Default = 5173
+    /** @DOCS : https://vitejs.dev/config/server-options.html#server-strictport */
+    // strictPort: true, // Default = false
+    host: true,
+  },
+  // Optional: Silence Sass deprecation warnings. See note below.
+  css: {
+     preprocessorOptions: {
+        scss: {
+          silenceDeprecations: [
+            'import',
+            'mixed-decls',
+            'color-functions',
+            'global-builtin',
+          ],
+        },
+     },
+  },
   build: {
     // lib: {
     //   entry: resolve(__dirname, 'src/index.ts'),

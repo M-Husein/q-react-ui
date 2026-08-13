@@ -31,21 +31,21 @@ export const Editor = forwardRef<MonacoEditorRef, MonacoEditorCdnProps>(
     const lastValueRef = useRef<string | undefined>(value ?? defaultValue ?? "");
     const [editorInstance, setEditorInstance] = useState<any>(null);
 
-    const isControlled = value != null;
+    // const isControlled = value != null;
 
     // Keep lastValueRef in sync when controlled
     useEffect(() => {
-      if (isControlled) {
+      if (value != null) {
         lastValueRef.current = value ?? "";
       }
-    }, [value, isControlled]);
+    }, [value]);
 
     useEffect(() => {
       if (!monaco || !containerRef.current) return;
 
       let dispose: (() => void) | undefined;
 
-      const initialValue = isControlled ? value! : defaultValue ?? "";
+      const initialValue = value != null ? value! : defaultValue ?? "";
 
       if (originalValue == null) {
         // Single Editor
@@ -162,7 +162,7 @@ export const Editor = forwardRef<MonacoEditorRef, MonacoEditorCdnProps>(
 
       const model = editorInstance.getModel();
 
-      if (!isControlled) {
+      if (!value) { // !isControlled
         // Uncontrolled: only sync language
         if (language) {
           if ("modified" in model) {
@@ -178,7 +178,7 @@ export const Editor = forwardRef<MonacoEditorRef, MonacoEditorCdnProps>(
       if (model) {
         if ("modified" in model) {
           // Diff editor
-          if (value !== undefined && value !== model.modified.getValue()) {
+          if (value != null && value !== model.modified.getValue()) {
             model.modified.setValue(value);
           }
 
@@ -189,7 +189,7 @@ export const Editor = forwardRef<MonacoEditorRef, MonacoEditorCdnProps>(
         } 
         else {
           // Single editor
-          if (value !== undefined && value !== model.getValue()) {
+          if (value != null && value !== model.getValue()) {
             model.setValue(value);
           }
 
@@ -198,11 +198,11 @@ export const Editor = forwardRef<MonacoEditorRef, MonacoEditorCdnProps>(
           }
         }
       }
-    }, [value, language, monaco, isControlled, editorInstance]);
+    }, [value, language, monaco, editorInstance]);
 
     return (
       <>
-        {isLoading && (loader ?? "Loading")}
+        {isLoading && (loader ?? "Loading…")}
         
         <div 
           {...rest}

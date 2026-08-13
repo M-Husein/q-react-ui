@@ -99,7 +99,7 @@ export const useResizable = ({
       e.preventDefault();
       setHeight(currentHeight => Math.max(minHeight, currentHeight - 10));
     }
-    if (e.key === 'ArrowDown') {
+    else if (e.key === 'ArrowDown') {
       e.preventDefault();
       setHeight(currentHeight => Math.min(maxHeight, currentHeight + 10));
     }

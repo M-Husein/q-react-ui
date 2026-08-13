@@ -3,11 +3,11 @@ import '@/components/Avatar/style.css';
 import '@/components/AvatarGroup/style.css';
 
 // App style
-import './index.css';
+import './styles/index.scss';
 
 // import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App';
+import { App } from './App';
 
 createRoot(document.getElementById('root')!).render(
   // <StrictMode>

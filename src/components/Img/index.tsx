@@ -72,7 +72,7 @@ export const Img = forwardRef<HTMLImageElement, ImgProps>(
           contentVisibility: hasBeenVisible ? 'auto' : 'hidden'
         }}
 
-        alt={alt || "?"}
+        alt={alt || ""}
         // src={src}
         // className={
         //   cn(
