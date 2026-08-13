@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import { type UseResizableOptions, useResizable } from "@/hooks/useResizable";
 
 // Omit wrapperRef from the options to keep it as an internal concern.
@@ -57,7 +57,7 @@ export const Resizable: React.FC<ResizableProps> = ({
     onTouchStart: handleReactEventStart,
     onKeyDown: handleKeyDown,
     // Optional
-    onContextMenu: e => e.preventDefault(),
+    // onContextMenu: e => e.preventDefault(),
     // onAuxClick: preventDefault,
   };
 

@@ -1,7 +1,17 @@
 import { forwardRef } from 'react';
 
+// WORKING FINE in Naiju ???
+// declare module 'react' {
+//   interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+//     inert?: boolean | '' | undefined;
+//     // OR
+//     // inert?: boolean | 'true' | 'false;
+//   }
+// }
+
 export type FormProps = {
   disabled?: boolean,
+  inert?: boolean,
   fieldsetProps?: React.FieldsetHTMLAttributes<HTMLFieldSetElement>,
 } & React.FormHTMLAttributes<HTMLFormElement>;
 
@@ -23,6 +33,7 @@ export type FormProps = {
 export const Form = forwardRef<HTMLFormElement, FormProps>((
   {
     disabled,
+    inert,
     fieldsetProps,
     children,
     ...etc
@@ -33,6 +44,12 @@ export const Form = forwardRef<HTMLFormElement, FormProps>((
     <form
       {...etc}
       ref={ref}
+      // WORKING FINE in Naiju ???
+      // @ts-ignore
+      inert={inert ?? disabled ? '' : void 0}
+      // OR
+      // inert={inert ?? disabled ? 'true' : void 0}
+      // inert={etc?.inert ?? disabled}
     >
       <fieldset
         {...fieldsetProps}
